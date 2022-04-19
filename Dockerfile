@@ -6,11 +6,11 @@ RUN ln -fs "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 RUN apt-get update
 RUN apt-get install -y \
     apt-transport-https \
-    awscli \
     ca-certificates \
     gnupg2 \
     libpq5 \
-    wget
+    wget \
+    unzip
 
 RUN cd `mktemp -d` && \
     wget https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && \
@@ -22,6 +22,13 @@ RUN apt-get install -y curl && \
     echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list && \
     apt-get update && \
     apt-get install -y kubectl
+
+RUN mkdir -p /tmp/awscli2 && \
+    cd /tmp/awscli2 && \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m).zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    ./aws/install && \
+    rm -rf /tmp/awscli2
 
 WORKDIR /root/
 
