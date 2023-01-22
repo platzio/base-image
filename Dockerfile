@@ -15,7 +15,7 @@ RUN apt-get install -y \
 RUN cd `mktemp -d` && \
     wget https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && \
     chmod +x get-helm-3 && \
-    DEBUG=true USE_SUDO=false DESIRED_VERSION=v3.8.2 ./get-helm-3
+    DEBUG=true USE_SUDO=false DESIRED_VERSION=v3.11.0 ./get-helm-3
 
 RUN apt-get install -y curl && \
     curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg && \
